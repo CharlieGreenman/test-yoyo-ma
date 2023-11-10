@@ -1,0 +1,95 @@
+{
+  "name": "test-yoyo-ma",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/test-yoyo-ma/src",
+  "prefix": "test-yoyo-ma",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/test-yoyo-ma",
+        "index": "apps/test-yoyo-ma/src/index.html",
+        "main": "apps/test-yoyo-ma/src/main.ts",
+        "polyfills": "apps/test-yoyo-ma/src/polyfills.ts",
+        "tsConfig": "apps/test-yoyo-ma/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/test-yoyo-ma/src/favicon.ico",
+          "apps/test-yoyo-ma/src/assets"
+        ],
+        "styles": ["apps/test-yoyo-ma/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/test-yoyo-ma/src/environments/environment.ts",
+              "with": "apps/test-yoyo-ma/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "test-yoyo-ma:build:production"
+        },
+        "development": {
+          "browserTarget": "test-yoyo-ma:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "test-yoyo-ma:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/test-yoyo-ma/src/**/*.ts",
+          "apps/test-yoyo-ma/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/test-yoyo-ma"],
+      "options": {
+        "jestConfig": "apps/test-yoyo-ma/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
